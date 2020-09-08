@@ -3,17 +3,19 @@ Cognitive Edge Monitoring with Prometheus Operator.
 
 Overall workflow:
 
-1. Install JSON Exporter Edge Service, example code available here.
-2. Install & Configure a k8s compatible cluster, details available here.
-3. Deploy a Prometheus operator and configure Custom Resource Definition, config files available here.
-4. Install a Grafana dashboard for Edge monitoring, file available here
+1. Install JSON Exporter Edge Service
+2. Install & Configure a k8s compatible cluster
+3. Deploy a Prometheus operator and configure Custom Resource Definition
+4. Install a Grafana dashboard for Edge monitoring
 
 
-Diagram goes here
+![Prometheus architecture ](docs/prometheus-design.png)
 
 1. Install JSON Exporter Edge service
 
-Folllow the steps provided here
+Folllow the steps provided at:
+
+[https://github.com/jiportilla/edge_json_exporter](https://github.com/jiportilla/edge_json_exporter)
 
 2. Install & configure k3s as follows:
 
