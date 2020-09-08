@@ -17,9 +17,9 @@ Folllow the steps provided at:
 
 [https://github.com/jiportilla/edge_json_exporter](https://github.com/jiportilla/edge_json_exporter)
 
-2. Install & configure k3s as follows:
+2. Install & configure k8s compatible cluster, for example k3s.
 
-## Install and configure a k3s edge cluster
+### Install and configure a k3s edge cluster
 
 K3s is a highly available, certified Kubernetes distribution designed for production workloads in unattended, resource-constrained, remote locations or inside IoT appliances.
 
@@ -46,10 +46,19 @@ k3s kubectl get node
 
 Or other compatible k8s offerings.
 
-3. Install a Prometheus operator instance with:
+3. Deploy **CoreOS** Prometheus Operator as follows:
 
-4. Configure CRDs in the Prometheus operator with:
+## 3. Configure rules in Prometheus to trigger alerts to AlertManager
 
-5. Create an Edge monitoring dashboard in Grafana with:
+The Prometheus ecosystem consists of multiple components, many of which are optional.
+
+### Architecture
+
+This diagram illustrates the architecture of Prometheus and some of its ecosystem components:
+
+![Prometheus architecture ](docs/prometheus-architecture.png)
+
+
+[architecture](https://prometheus.io/docs/introduction/overview/)
 
 
