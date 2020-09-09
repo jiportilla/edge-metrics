@@ -302,9 +302,11 @@ Update **Alertmanager** configuration with:
 
 `k3s kubectl -n monitoring apply -f config/alertmanager-secret.yaml`
 
-Alert example
+- Alert example
 
-Email notification example
+![Edge Prometheus Operator ](docs/edge-alert.png)
+
+- Email notification example
 
 ![Alert Example ](docs/alertExample.png)
 
@@ -333,6 +335,7 @@ From here you can upload a dashboard JSON file, paste a Grafana.com dashboard UR
 
 Click on `Upload .json file` and upload the dashboard JSON file provide in `grafana/Edge-monitoring.json`
 
+![Edge Prometheus Operator ](docs/edge-dashboard.png)
 
 [https://grafana.com/docs/grafana/latest/reference/export_import/](https://grafana.com/docs/grafana/latest/reference/export_import/)
 
