@@ -122,6 +122,9 @@ This repository collects Kubernetes manifests, Grafana dashboards, and Prometheu
 
 [https://github.com/prometheus-operator/prometheus-operator](https://github.com/prometheus-operator/prometheus-operator)
 ## Community Prometheus Operator
+Resources available at: 
+[https://github.com/carlosedp/cluster-monitoring](https://github.com/carlosedp/cluster-monitoring)
+
 
 The Community Prometheus Operator for Kubernetes provides easy monitoring definitions for Kubernetes services and deployment and management of Prometheus instances.
 
@@ -140,8 +143,12 @@ Components included in this package:
 - Grafana
 - SMTP relay to Gmail for Grafana notifications (optional)
 
-Resources available at: 
-[https://github.com/carlosedp/cluster-monitoring](https://github.com/carlosedp/cluster-monitoring)
+
+Other community operators are available include:
+
+- [https://github.com/marcel-dempers/docker-development-youtube-series](https://github.com/marcel-dempers/docker-development-youtube-series)
+- [https://docs.openshift.com/container-platform/4.1/applications/operator_sdk/osdk-monitoring-prometheus.html](https://docs.openshift.com/container-platform/4.1/applications/operator_sdk/osdk-monitoring-prometheus.html)
+
 
 ## Community Prometheus Operator Quickstart deployment on K3S
 
