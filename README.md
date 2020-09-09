@@ -42,8 +42,9 @@ Notice the `severity` and `message` content in the resulting JSON. This informat
 
 1. Install JSON Exporter Edge Service
 2. Install & Configure a k8s compatible cluster
-3. Deploy a Prometheus operator and configure Custom Resource Definitions
-4. Install a Grafana dashboard for Edge monitoring
+3. Deploy a Prometheus operator
+4. Configure Custom Resource Definitions for Edge monitoring
+5. Install a Grafana dashboard for Edge monitoring
 
 
 ![Prometheus architecture ](docs/prometheus-design.png)
@@ -191,7 +192,27 @@ To uninstall run:
 
 `make teardown`
 
-## 4. Install a Grafana dashboard for Edge monitoring
+## 4. Configure CRDs for Edge monitoring
+
+Using the resources provided in yaml directory, configure the following Custome Resource Definitions
+
+- Service
+- ServiceMonitor
+- Endpoint
+
+Update `yamls/external-servers.yml` with ip address of those edge devices to be monitored
+
+Add CRDs with:
+
+`k3s kubectl -n monitoring apply -f yamls/external-servers.yml`
+
+Optionally, configure AlertManager to send alerts via email notifications.
+
+Update Alertmanager configuration with:
+
+`k3s kubectl -n monitoring apply -f yamls/alertmanager-secret.yml`
+
+## 5. Install a Grafana dashboard for Edge monitoring
 
 Grafana allows you to query, visualize, alert on and understand your metrics no matter where they are stored. Create, explore, and share dashboards with your team and foster a data driven culture:
 
