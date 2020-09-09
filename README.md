@@ -41,9 +41,13 @@ Notice the `severity` and `message` content in the resulting JSON. This informat
 ## Overall workflow:
 
 [1. Install JSON Exporter Edge Service](#preconditions)
+
 [2. Install & Configure a k8s compatible cluster](#k3s)
+
 [3. Deploy a Prometheus operator](#prometheus)
+
 [4. Configure Custom Resource Definitions for Edge monitoring](#crds)
+
 [5. Install a Grafana dashboard for Edge monitoring](#grafana)
 
 ![Prometheus architecture ](docs/prometheus-design.png)
