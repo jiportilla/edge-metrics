@@ -341,6 +341,10 @@ Click on `Upload .json file` and upload the dashboard JSON file provide in `graf
 
 ## Error Examples
 
+- Runbook example
+
+	[Port conflict](docs/Port-conflict-resolution.md)
+
 Description of problem:
 
 **Bind for 0.0.0.0:9080 failed: port is already allocated**
