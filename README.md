@@ -2,9 +2,7 @@
 Cognitive Edge Monitoring with Prometheus Operator.
 
 ###Edge Node EventLog Rest API
-Anax provides an Event Log rest API,
-
-For example, to list the event logs for the current or all registrations run:
+Anax provides an Event Log rest API. For example, to list the event logs for the current or all registrations you can run:
 
 `hzn eventlog list`
 
@@ -36,14 +34,14 @@ Here is an example of the information provided with `hzn eventlog list -l` comma
     }
   }
 ```
-Notice the `severity` and `message` content in the resulting JSON. This information will exported to Prometheus.
+Notice the `severity` and `message` content in the resulting JSON. This information will exported to Prometheus using a JSON exporter implementation.
 
 
 ##Overall workflow:
 
 1. Install JSON Exporter Edge Service
 2. Install & Configure a k8s compatible cluster
-3. Deploy a Prometheus operator and configure Custom Resource Definition
+3. Deploy a Prometheus operator and configure Custom Resource Definitions
 4. Install a Grafana dashboard for Edge monitoring
 
 
@@ -55,11 +53,11 @@ The Prometheus development community has created a JSON Exporter to scrape remot
 
 Install and configure the JSON Exporter edge service by following the steps provided at:
 
-[https://github.com/jiportilla/edge_json_exporter](https://github.com/jiportilla/edge_json_exporter)
+[edge-json-exporter repo](https://github.com/jiportilla/edge_json_exporter)
 
-##2. Install & configure a k8s0compatible cluster
+##2. Install & configure a k8s compatible cluster
 
-For example k3s:
+For example, to install k3s (rancher) complete the following steps:
 
 ### Install and configure a k3s edge cluster
 
@@ -88,31 +86,43 @@ k3s kubectl get node
 
 Or other compatible k8s offerings.
 
-Next, deploy **CoreOS** Prometheus Operator as follows:
+Next, deploy **CoreOS** Prometheus Operator as described in the next section.
 
 ## 3. Deploy a Prometheus operator and configure Custom Resource Definition
 
 The Prometheus ecosystem consists of multiple components, many of which are optional.
 
-### Architecture
+### Prometheus Architecture
 
 This diagram illustrates the architecture of Prometheus and some of its ecosystem components:
 
 ![Prometheus architecture ](docs/prometheus-architecture.png)
 
 
-[architecture](https://prometheus.io/docs/introduction/overview/)
+Details are available [here](https://prometheus.io/docs/introduction/overview/)
 
-###Prometheus Operator
+##Prometheus Operator
 
-The Prometheus Operator for Kubernetes provides easy monitoring definitions for Kubernetes services and deployment and management of Prometheus instances.
+The Prometheus Operator introduces additional resources in Kubernetes to declare the desired state of a Prometheus and Alertmanager cluster as well as the Prometheus configuration. The resources it introduces are:
+
+- Prometheus
+- Alertmanager
+- ServiceMonitor
+
+The Prometheus resource declaratively describes the desired state of a Prometheus deployment, while a ServiceMonitor describes the set of targets to be monitored by Prometheus.
+
+![Edge Prometheus Operator ](docs/operator-architecture.png)
+
+This repository collects Kubernetes manifests, Grafana dashboards, and Prometheus rules combined with documentation and scripts to provide easy to operate end-to-end Kubernetes cluster monitoring with Prometheus using the Prometheus Operator.
+
+[https://github.com/prometheus-operator/prometheus-operator](https://github.com/prometheus-operator/prometheus-operator)
+## Community Prometheus Operator
+
+The Community Prometheus Operator for Kubernetes provides easy monitoring definitions for Kubernetes services and deployment and management of Prometheus instances.
+
+The content of this Community Prometheus operator example is written in jsonnet and is an extension of the fantastic kube-prometheus project.
 
 ![Edge Prometheus Operator ](docs/Edge-Prometheus-operator.png)
-
-This repository collects Kubernetes manifests, Grafana dashboards, and Prometheus rules combined with documentation and scripts to provide easy to operate end-to-end Kubernetes cluster monitoring with Prometheus using the Prometheus Operator. The container images support AMD64, ARM64, ARM and PPC64le architectures.
-
-The content of this project is written in jsonnet and is an extension of the fantastic kube-prometheus project.
-
 
 Components included in this package:
 
@@ -128,7 +138,8 @@ Components included in this package:
 Resources available at: 
 [https://github.com/carlosedp/cluster-monitoring](https://github.com/carlosedp/cluster-monitoring)
 
-## Quickstart for K3S
+## Community Prometheus Operator Quickstart deployment on K3S
+
 To deploy the monitoring stack on your K3s cluster, there are four parameters that need to be configured in the vars.jsonnet file:
 
 1. Set k3s.enabled to true.
@@ -178,3 +189,16 @@ After this, a new customized set of manifests is built into the manifests dir. T
 To uninstall run:
 
 `make teardown`
+
+## 4. Install a Grafana dashboard for Edge monitoring
+
+Grafana allows you to query, visualize, alert on and understand your metrics no matter where they are stored. Create, explore, and share dashboards with your team and foster a data driven culture:
+
+- Visualize: Fast and flexible client side graphs with a multitude of options. Panel plugins for many different way to visualize metrics and logs.
+- Dynamic Dashboards: Create dynamic & reusable dashboards with template variables that appear as dropdowns at the top of the dashboard.
+- Explore Metrics: Explore your data through ad-hoc queries and dynamic drilldown. Split view and compare different time ranges, queries and data sources side by side.
+- Explore Logs: Experience the magic of switching from metrics to logs with preserved label filters. Quickly search through all your logs or streaming them live.
+- Alerting: Visually define alert rules for your most important metrics. Grafana will continuously evaluate and send notifications to systems like Slack, PagerDuty, VictorOps, OpsGenie.
+- Mixed Data Sources: Mix different data sources in the same graph! You can specify a data source on a per-query basis. This works for even custom datasources.
+
+[https://github.com/grafana/grafana](https://github.com/grafana/grafana)
