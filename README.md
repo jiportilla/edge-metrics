@@ -40,16 +40,15 @@ Notice the `severity` and `message` content in the resulting JSON. This informat
 
 ## Overall workflow:
 
-1. Install JSON Exporter Edge Service
-2. Install & Configure a k8s compatible cluster
-3. Deploy a Prometheus operator
-4. Configure Custom Resource Definitions for Edge monitoring
-5. Install a Grafana dashboard for Edge monitoring
-
+[1. Install JSON Exporter Edge Service](#preconditions)
+[2. Install & Configure a k8s compatible cluster](#k3s)
+[3. Deploy a Prometheus operator](#prometheus)
+[4. Configure Custom Resource Definitions for Edge monitoring](#crds)
+[5. Install a Grafana dashboard for Edge monitoring](#grafana)
 
 ![Prometheus architecture ](docs/prometheus-design.png)
 
-## 1. Install JSON Exporter edge service
+## <a id=preconditions></a> 1. Install JSON Exporter edge service
 
 The Prometheus development community has created a JSON Exporter to scrape remote JSON data by JSONPath. Source code is available at [https://github.com/prometheus-community/json_exporter](https://github.com/prometheus-community/json_exporter)
 
@@ -57,7 +56,7 @@ Install and configure the JSON Exporter edge service by following the steps prov
 
 [edge-json-exporter repo](https://github.com/jiportilla/edge_json_exporter)
 
-## 2. Install & configure a k8s compatible cluster
+## <a id=k3s></a> 2. Install & configure a k8s compatible cluster
 
 For example, to install k3s (rancher) complete the following steps:
 
@@ -90,7 +89,7 @@ Or other compatible k8s offerings.
 
 Next, deploy **CoreOS** Prometheus Operator as described in the next section.
 
-## 3. Deploy a Prometheus operator and configure Custom Resource Definition
+## <a id=prometheus></a> 3. Deploy a Prometheus operator and configure Custom Resource Definition
 
 The Prometheus ecosystem consists of multiple components, many of which are optional.
 
@@ -192,7 +191,7 @@ To uninstall run:
 
 `make teardown`
 
-## 4. Configure CRDs for Edge monitoring
+## <a id=crds></a> 4. Configure CRDs for Edge monitoring
 
 You should complete these steps before proceeding with the Community Prometheus Operator configuration:
 
@@ -298,7 +297,7 @@ Email notification example
 
 ![Alert Example ](docs/alertExample.png)
 
-## 5. Install a Grafana dashboard for Edge monitoring
+## <a id=grafana></a> 5. Install a Grafana dashboard for Edge monitoring
 
 Grafana allows you to query, visualize, alert on and understand your metrics no matter where they are stored. Create, explore, and share dashboards with your team and foster a data driven culture:
 
@@ -324,7 +323,7 @@ From here you can upload a dashboard JSON file, paste a Grafana.com dashboard UR
 Click on `Upload .json file` and upload the dashboard JSON file provide in `grafana/Edge-monitoring.json`
 
 
-
+[https://grafana.com/docs/grafana/latest/reference/export_import/](https://grafana.com/docs/grafana/latest/reference/export_import/)
 
 ## Error Examples
 
