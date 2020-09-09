@@ -38,7 +38,7 @@ Here is an example of the information provided with `hzn eventlog list -l` comma
 Notice the `severity` and `message` content in the resulting JSON. This information will exported to Prometheus using a JSON exporter implementation.
 
 
-##Overall workflow:
+## Overall workflow:
 
 1. Install JSON Exporter Edge Service
 2. Install & Configure a k8s compatible cluster
@@ -48,7 +48,7 @@ Notice the `severity` and `message` content in the resulting JSON. This informat
 
 ![Prometheus architecture ](docs/prometheus-design.png)
 
-##1. Install JSON Exporter edge service
+## 1. Install JSON Exporter edge service
 
 The Prometheus development community has created a JSON Exporter to scrape remote JSON data by JSONPath. Source code is available at [https://github.com/prometheus-community/json_exporter](https://github.com/prometheus-community/json_exporter)
 
@@ -56,7 +56,7 @@ Install and configure the JSON Exporter edge service by following the steps prov
 
 [edge-json-exporter repo](https://github.com/jiportilla/edge_json_exporter)
 
-##2. Install & configure a k8s compatible cluster
+## 2. Install & configure a k8s compatible cluster
 
 For example, to install k3s (rancher) complete the following steps:
 
@@ -102,7 +102,7 @@ This diagram illustrates the architecture of Prometheus and some of its ecosyste
 
 Details are available [here](https://prometheus.io/docs/introduction/overview/)
 
-##Prometheus Operator
+## Prometheus Operator
 
 The Prometheus Operator introduces additional resources in Kubernetes to declare the desired state of a Prometheus and Alertmanager cluster as well as the Prometheus configuration. The resources it introduces are:
 
