@@ -194,23 +194,68 @@ To uninstall run:
 
 ## 4. Configure CRDs for Edge monitoring
 
-Using the resources provided in yaml directory, configure the following Custome Resource Definitions
+Using the resources provided in yaml directory, configure the following Custom Resource Definitions
 
 - Service
 - ServiceMonitor
-- Endpoint
+- Endpoints
 
-Update `yamls/external-servers.yml` with ip address of those edge devices to be monitored
 
-Add CRDs with:
+Update `config/external-servers.yaml` with ip address of those edge devices to be monitored
 
-`k3s kubectl -n monitoring apply -f yamls/external-servers.yml`
+For example:
+
+```yaml
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: edge-monitoring
+  labels:
+    k8s-app: edge-monitoring
+subsets:
+- addresses:
+  - ip: [xxx.xxx.xxx.xxx]
+  - ip: [yyy.yyy.yyy.yyy]
+  ports:
+  - name: metrics
+    port: 7979
+    protocol: TCP
+```
+
+Optionally, update the `config/prometheus-rules.yaml` file to add additional alert rules if needed:
+
+```
+  - name: edge.rules
+    rules:
+    - alert: EventLog
+      annotations:
+        message: 'Errors from EventLog in {{ $labels.namespace }} Namespace, at {{ $labels.service }} Service, in {{ $labels.instance }} Instance'
+        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md
+        summary: Edge Node EventLog is reporting errors.
+      expr: |
+        count  by (namespace, service, instance) ( EventLog_error_info ) > 5
+      for: 2m
+      labels:
+        severity: critical
+        
+```
+
+Next, add CRDs with:
+
+`k3s kubectl -n monitoring apply -f config/external-servers.yaml`
+
+**Note** Use any existing namespace, we recommend creating a `monitoring` namespace with
+
+`k3s kubectl get namespaces`
+
+`k3s kubectl create namespace monitoring`
+
 
 Optionally, configure AlertManager to send alerts via email notifications.
 
 Update Alertmanager configuration with:
 
-`k3s kubectl -n monitoring apply -f yamls/alertmanager-secret.yml`
+`k3s kubectl -n monitoring apply -f config/alertmanager-secret.yaml`
 
 ## 5. Install a Grafana dashboard for Edge monitoring
 
