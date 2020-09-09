@@ -1,7 +1,7 @@
 # Edge Monitoring
 Cognitive Edge Monitoring with Prometheus Operator.
 
-###Edge Node EventLog Rest API
+### Edge Node EventLog Rest API
 
 Anax provides an Event Log rest API. For example, to list the event logs for the current or all registrations you can run:
 
