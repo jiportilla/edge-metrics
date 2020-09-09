@@ -240,7 +240,7 @@ Optionally, update the `config/prometheus-rules.yaml` file to add additional ale
         
 ```
 
-2. Next, add CRDs with:
+2. Next, add the CRDs listed above with:
 
 `k3s kubectl -n monitoring apply -f config/external-servers.yaml`
 
@@ -251,9 +251,26 @@ Optionally, update the `config/prometheus-rules.yaml` file to add additional ale
 `k3s kubectl create namespace monitoring`
 
 
-Optionally, configure AlertManager to send alerts via email notifications.
+Optionally, configure **AlertManager** to send **alerts** via email notifications.
 
-Update Alertmanager configuration with:
+Update the `config/alertmanager-secret.yaml` file with the email and route settings:
+
+```
+      email_configs:
+      - to: <some-admin>@gmail.com
+        from: edge.node.alerts@gmail.com
+        smarthost: smtp.gmail.com:587
+        auth_username: <some-user>@gmail.com
+        auth_identity: <some-user>@gmail.com
+        auth_password: ****
+        headers:
+          From: edge.node.alerts@gmail.com
+          Subject: 'Edge EventLog alert'
+```
+
+ 
+
+Update **Alertmanager** configuration with:
 
 `k3s kubectl -n monitoring apply -f config/alertmanager-secret.yaml`
 
