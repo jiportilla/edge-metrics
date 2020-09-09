@@ -194,7 +194,18 @@ To uninstall run:
 
 ## 4. Configure CRDs for Edge monitoring
 
-Using the resources provided in `config` directory, create the following Custom Resource Definitions
+You should complete these steps before proceeding with the Community Prometheus Operator configuration:
+
+1. Clone this git repository:
+
+```bash
+cd ~   # or wherever you want
+git clone https://github.com/jiportilla/edge-metrics.git
+cd ~/edge-metrics/
+```
+
+
+Using the resources provided in the `config` directory, create the following Custom Resource Definitions
 
 - Service
 - ServiceMonitor
@@ -222,7 +233,9 @@ subsets:
     protocol: TCP
 ```
 
-Optionally, update the `config/prometheus-rules.yaml` file to add additional alert rules if needed:
+Optionally, 
+
+- update the `config/prometheus-rules.yaml` file with the desired conditions and severity using Prometheus PromQL:
 
 ```
   - name: edge.rules
@@ -240,15 +253,20 @@ Optionally, update the `config/prometheus-rules.yaml` file to add additional ale
         
 ```
 
-2. Next, add the CRDs listed above with:
-
-`k3s kubectl -n monitoring apply -f config/external-servers.yaml`
+- Apply the `prometheus-rules.yaml` file with `kubectl -n monitoring apply -f config/prometheus-rules.yaml`
 
 **Note** Use any existing namespace, we recommend creating a `monitoring` namespace with
 
 `k3s kubectl get namespaces`
 
 `k3s kubectl create namespace monitoring`
+
+- Verify the rules in Prometheus were update by opening the Alerts page at `http://prometheus.[your_node_ip].nip.io/alerts`
+
+
+2. Next, add the CRDs listed above with:
+
+`k3s kubectl -n monitoring apply -f config/external-servers.yaml`
 
 
 Optionally, configure **AlertManager** to send **alerts** via email notifications.
@@ -258,7 +276,7 @@ Update the `config/alertmanager-secret.yaml` file with the email and route setti
 ```
       email_configs:
       - to: <some-admin>@gmail.com
-        from: edge.node.alerts@gmail.com
+        from: <some-user>s@gmail.com
         smarthost: smtp.gmail.com:587
         auth_username: <some-user>@gmail.com
         auth_identity: <some-user>@gmail.com
@@ -274,6 +292,12 @@ Update **Alertmanager** configuration with:
 
 `k3s kubectl -n monitoring apply -f config/alertmanager-secret.yaml`
 
+Alert example
+
+Email notification example
+
+![Alert Example ](docs/alertExample.png)
+
 ## 5. Install a Grafana dashboard for Edge monitoring
 
 Grafana allows you to query, visualize, alert on and understand your metrics no matter where they are stored. Create, explore, and share dashboards with your team and foster a data driven culture:
@@ -286,3 +310,68 @@ Grafana allows you to query, visualize, alert on and understand your metrics no 
 - Mixed Data Sources: Mix different data sources in the same graph! You can specify a data source on a per-query basis. This works for even custom datasources.
 
 [https://github.com/grafana/grafana](https://github.com/grafana/grafana)
+
+### Import the Edge monitoring dashboard
+
+A dashboard is a set of one or more panels organized and arranged into one or more rows. Grafana ships with a variety of Panels. Grafana makes it easy to construct the right queries, and customize the display properties so that you can create the perfect dashboard for your need. Each panel can interact with data from any configured Grafana Data Source (currently Graphite, Prometheus, Elasticsearch, InfluxDB, OpenTSDB, MySQL, PostgreSQL, Microsoft SQL Server and AWS Cloudwatch).
+
+To import a dashboard click the + icon in the side menu, and then click Import.
+
+From here you can upload a dashboard JSON file, paste a Grafana.com dashboard URL or paste dashboard JSON text directly into the text area.
+
+![Alert Example ](docs/import_step1.png)
+
+Click on `Upload .json file` and upload the dashboard JSON file provide in `grafana/Edge-monitoring.json`
+
+
+
+
+## Error Examples
+
+Description of problem:
+
+**Bind for 0.0.0.0:9080 failed: port is already allocated**
+
+How reproducible:
+After Edge Registration.
+
+Actual Results:
+The container fails to start.
+
+Expected Results:
+Container starts.
+
+Additional info:
+
+Tail of /var/log/upstart/docker.log (after restarting Docker):
+
+Resolution:
+Another docker container was still running in the background from a different project.
+
+This can be fixed by running:
+
+```
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+```
+
+You need to make sure that the previous container you launched is killed, before launching a new one that uses the same port.
+
+```
+docker container ls
+docker rm -f <container-name>
+```
+
+Also:
+
+Execute a lsof command to find the process using the port (for me it was port 9090)
+
+```
+sudo lsof -i -P -n | grep 9090
+```
+
+Finally,  "kill" the process :
+
+```
+kill -9 <process id>
+```
