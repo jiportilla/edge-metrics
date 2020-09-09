@@ -194,14 +194,14 @@ To uninstall run:
 
 ## 4. Configure CRDs for Edge monitoring
 
-Using the resources provided in yaml directory, configure the following Custom Resource Definitions
+Using the resources provided in `config` directory, create the following Custom Resource Definitions
 
 - Service
 - ServiceMonitor
 - Endpoints
 
 
-Update `config/external-servers.yaml` with ip address of those edge devices to be monitored
+1. Update `config/external-servers.yaml` with the ip address(es) of the edge device(s) to be monitored
 
 For example:
 
@@ -240,7 +240,7 @@ Optionally, update the `config/prometheus-rules.yaml` file to add additional ale
         
 ```
 
-Next, add CRDs with:
+2. Next, add CRDs with:
 
 `k3s kubectl -n monitoring apply -f config/external-servers.yaml`
 
