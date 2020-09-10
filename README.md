@@ -93,7 +93,7 @@ Or other compatible k8s offerings.
 
 Next, deploy **CoreOS** Prometheus Operator as described in the next section.
 
-## <a id=prometheus></a> 3. Deploy a Prometheus operator and configure Custom Resource Definition
+## <a id=prometheus></a> 3. Deploy a Prometheus operator and configure Custom Resource Definitions (CRDs)
 
 The Prometheus ecosystem consists of multiple components, many of which are optional.
 
@@ -144,7 +144,7 @@ Components included in this package:
 - SMTP relay to Gmail for Grafana notifications (optional)
 
 
-Other community operators are available include:
+Other community operators are also available at:
 
 - [https://github.com/marcel-dempers/docker-development-youtube-series](https://github.com/marcel-dempers/docker-development-youtube-series)
 - [https://docs.openshift.com/container-platform/4.1/applications/operator_sdk/osdk-monitoring-prometheus.html](https://docs.openshift.com/container-platform/4.1/applications/operator_sdk/osdk-monitoring-prometheus.html)
