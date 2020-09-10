@@ -1,21 +1,24 @@
-Description of problem:
+## Description of problem:
 
 **Bind for 0.0.0.0:9080 failed: port is already allocated**
 
 How reproducible:
 After Edge Registration.
 
-Actual Results:
+- Actual Results:
 The container fails to start.
 
-Expected Results:
+- Expected Results:
 Container starts.
 
-Additional info:
+- Additional info:
 
-Tail of /var/log/upstart/docker.log (after restarting Docker):
+	Tail of `/var/log/upstart/docker.log` (after restarting Docker)
+	
+	`tail -f /var/log/upstart/docker.log`
 
-Resolution:
+### Resolution:
+
 Another docker container was still running in the background from a different project.
 
 This can be fixed by running:
