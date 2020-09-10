@@ -144,7 +144,7 @@ Components included in this package:
 - SMTP relay to Gmail for Grafana notifications (optional)
 
 
-Other community operators are also available at:
+Other community prometheus operator examples are available at:
 
 - [https://github.com/marcel-dempers/docker-development-youtube-series](https://github.com/marcel-dempers/docker-development-youtube-series)
 - [https://docs.openshift.com/container-platform/4.1/applications/operator_sdk/osdk-monitoring-prometheus.html](https://docs.openshift.com/container-platform/4.1/applications/operator_sdk/osdk-monitoring-prometheus.html)
